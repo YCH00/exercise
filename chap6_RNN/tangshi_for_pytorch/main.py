@@ -4,7 +4,7 @@ import torch
 from torch.autograd import Variable
 import torch.optim as optim
 
-import rnn
+import rnn as rnn_lstm
 
 start_token = 'G'
 end_token = 'E'
@@ -24,7 +24,7 @@ def process_poems1(file_name):
         for line in f.readlines():
             try:
                 title, content = line.strip().split(':')
-                # content = content.replace(' ', '').replace('，','').replace('。','')
+                content = content.replace(' ', '').replace('，','').replace('。','')
                 content = content.replace(' ', '')
                 if '_' in content or '(' in content or '（' in content or '《' in content or '[' in content or \
                                 start_token in content or end_token in content:
@@ -187,7 +187,7 @@ def pretty_print_poem(poem):  # 令打印的结果更工整
         shige.append(w)
     poem_sentences = poem.split('。')
     for s in poem_sentences:
-        if s != '' and len(s) > 10:
+        if s != '':
             print(s + '。')
 
 
